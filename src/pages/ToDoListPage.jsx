@@ -9,10 +9,10 @@ import { useFetching } from "../hooks/useFetch";
 import { getPageCount } from "../utils/pages";
 import { useObserver } from "../hooks/useObserver";
 import Loader from "../components/UI/loader/Loader";
-import { usePosts } from "../hooks/usePosts";
-import PostFilter from "../components/PostFilter";
 import MySelect from "../components/UI/select/MySelect";
 import EditToDo from "../components/EditToDo";
+import ToDoFilter from "../components/ToDoFilter";
+import { useToDo } from "../hooks/useToDos";
 
 function ToDoListPage() {
   const [posts, setPosts] = useState([]);
@@ -22,7 +22,7 @@ function ToDoListPage() {
   const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
-  const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
+  const sortedAndSearchedPosts = useToDo(posts, filter.sort, filter.query);
   const lastElement = useRef();
   const [editedPost, setEditedPost] = useState([]);
 
@@ -57,16 +57,15 @@ function ToDoListPage() {
   };
 
   const editToDo = (post) => {
-    console.log(post);
     setEditedPost(post);
     setEditModal(true);
   };
 
-  const editToDoFunk = (post) => {
+  const editToDoFunk = (itemTitle) => {
     setPosts(
       [...posts].filter((item) => {
         if (item.id === editedPost.id) {
-          item.title = post;
+          item.title = itemTitle;
         }
         return item;
       })
@@ -91,13 +90,13 @@ function ToDoListPage() {
         Добавить задачу
       </MyButton>
       <MyModal visible={modal} setVisible={setModal}>
-        <AddToDo create={createPost} postItemTitle={editedPost.title} />
+        <AddToDo create={createPost} />
       </MyModal>
       <MyModal visible={editModal} setVisible={setEditModal}>
-        <EditToDo edit={editToDoFunk} />
+        <EditToDo edit={editToDoFunk} postItemTitle={editedPost.title} />
       </MyModal>
       <hr style={{ margin: "15px 0px" }} />
-      {/*       <PostFilter filter={filter} setFilter={setFilter} /> */}
+      <ToDoFilter filter={filter} setFilter={setFilter} />
       <MySelect
         value={limit}
         onChange={(value) => setLimit(value)}

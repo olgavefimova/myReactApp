@@ -91,3 +91,8 @@ html[data-theme="light"] {
 .navbar__link {
   padding: 0 15px;
 }
+
+.active {
+  font-weight: bold;
+  color: brown;
+}

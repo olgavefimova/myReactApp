@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import MyButton from "../button/MyButton";
 import { AuthContext } from "../../../context";
 
@@ -15,15 +15,15 @@ const Navbar = () => {
     <div className="navbar">
       <MyButton onClick={logout}>Выйти</MyButton>
       <div className="navbar__links">
-        <Link className="navbar__link" to="/about">
+        <NavLink className="navbar__link" activeclassname="active" to="/about">
           О сайте
-        </Link>
-        <Link className="navbar__link" to="/posts">
+        </NavLink>
+        <NavLink className="navbar__link" activeclassname="active" to="/posts">
           Посты
-        </Link>
-        <Link className="navbar__link" to="/todo">
+        </NavLink>
+        <NavLink className="navbar__link" activeclassname="active" to="/todo">
           ToDo
-        </Link>
+        </NavLink>
       </div>
     </div>
   );
