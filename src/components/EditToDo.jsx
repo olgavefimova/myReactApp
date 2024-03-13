@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MyButton from "./UI/button/MyButton";
 import MyInput from "./UI/input/MyInput";
 
 const EditToDo = ({ edit, postItemTitle }) => {
-  const [title, setTitle] = useState(postItemTitle);
+  const [title, setTitle] = useState("");
+
+  useEffect(() => {
+    setTitle(postItemTitle);
+  }, [postItemTitle]);
 
   const editToDo = (e) => {
     console.log("postItemTitle " + postItemTitle);

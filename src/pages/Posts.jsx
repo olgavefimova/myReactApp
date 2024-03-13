@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import PostList from "../components/PostList";
 import "../styles/App.css";
 import PostForm from "../components/PostForm";
@@ -13,6 +13,7 @@ import Pagination from "../components/UI/pagination/Pagination";
 import { getPageCount } from "../utils/pages";
 import { useObserver } from "../hooks/useObserver";
 import MySelect from "../components/UI/select/MySelect";
+import { ThemeContext } from "../utils/ThemeContext";
 
 function Posts() {
   const [posts, setPosts] = useState([]);
@@ -23,6 +24,7 @@ function Posts() {
   const [page, setPage] = useState(1);
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
   const lastElement = useRef();
+  const theme = useContext(ThemeContext);
 
   const [fetchPost, isPostLoading, postError] = useFetching(
     async (limit, page) => {
@@ -55,7 +57,7 @@ function Posts() {
   };
 
   return (
-    <div className="App">
+    <div className="App" style={theme}>
       <MyButton style={{ marginTop: 30 }} onClick={() => setModal(true)}>
         Создать
       </MyButton>
